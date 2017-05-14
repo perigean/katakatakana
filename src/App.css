@@ -1,0 +1,17 @@
+
+@keyframes flyout {
+  0% { opacity: 0.0; transform: translateZ(0px);}
+  10% { opacity: 1.0; transform: translateZ(20px); }
+  50% { opacity: 1.0; transform: translateZ(100px); }
+  100% { opacity: 0.0; transform: translateZ(200px); }
+}
+
+@keyframes rotin {
+  0% { transform: rotate3d(0, 1, 0, 180deg); }
+  100% { transform: rotate3d(0, 1, 0, 0deg); }
+}
+
+@keyframes rotout {
+  0% { transform: rotate3d(0, 1, 0, 0deg); }
+  100% { transform: rotate3d(0, 1, 0, 180deg); }
+}
