@@ -189,16 +189,13 @@ class KanaTest extends React.Component {
 
   renderTransition(leaving, entering) {
     return (
-      <div style={{
-        width: '100%',
-        height: '100%',
-      }}>
+      <div>
         <div key={`phrase ${this.state.index}`} style={{
           position: 'absolute',
           top: '0',
           left: '0',
           width: '100%',
-          height: '100%',
+          height: '50%',
           backfaceVisibility: 'hidden',
           animationName: 'rotin',
           animationDuration: '0.3s',
@@ -212,7 +209,7 @@ class KanaTest extends React.Component {
           top: '0',
           left: '0',
           width: '100%',
-          height: '100%',
+          height: '50%',
           backfaceVisibility: 'hidden',
           animationName: 'rotout',
           animationDuration: '0.3s',
@@ -228,6 +225,7 @@ class KanaTest extends React.Component {
           onKeyPress={e => this.onKeyPress(e)}
           style={{
             position: 'absolute',
+            fontSize: '25vmin',
             top: '0',
             left: '0',
             width: '100%',
