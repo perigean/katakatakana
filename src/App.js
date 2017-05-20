@@ -134,22 +134,6 @@ class KanaPhrase extends React.Component {
         >
           {errorIcons}
         </div>
-        <input
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            left: '0px',
-            top: '0px',
-            color: 'transparent',
-            background: 'transparent',
-          }}
-          key="input"
-          type="text"
-          value={''}
-          onKeyPress={e => this.onKeyPress(e)}
-          autoFocus
-        />
       </div>
     );
     // TODO: move input box out of here, input should be higher up
@@ -177,7 +161,7 @@ class KanaTest extends React.Component {
     this.state = {
       t0: Date.now(),
       stats: [],
-      index: 0,
+      index: -1,
     };
   }
 
@@ -193,15 +177,17 @@ class KanaTest extends React.Component {
     });
   }
 
-  render() {
-    let entering = this.state.index < this.props.test.length ? (
-      <KanaPhrase kana={this.props.test[this.state.index]} onDone={e => this.onPhraseDone(e)} />
-    ) : (
-      <KanaTestStats stats={this.state.stats} />
-    );
-    let leaving = this.state.index > 0 ? (
-      <KanaPhrase kana={this.props.test[this.state.index - 1]} onDone={e => {}} />
-    ) : null;
+  onFocus(e) {
+    if (this.state.index === -1) {
+      this.setState({index: 0});
+    }
+  }
+
+  onKeyPress(e) {
+    
+  }
+
+  renderTransition(leaving, entering) {
     return (
       <div style={{
         width: '100%',
@@ -235,8 +221,49 @@ class KanaTest extends React.Component {
         }}>
           {leaving}
         </div>
+        <input key="input"
+          type="text"
+          value=""
+          onFocus={e => this.onFocus(e)}
+          onKeyPress={e => this.onKeyPress(e)}
+          style={{
+            position: 'absolute',
+            top: '0',
+            left: '0',
+            width: '100%',
+            height: '100%',
+            border: '0',
+            padding: '0',
+            background: 'transparent',
+          }}/>
       </div>
     );
+  }
+
+  render() {
+    const test = this.props.test;
+    const index = this.state.index;
+    if (index === -1) {
+      return this.renderTransition(
+        null,
+        <div>Tap to start!</div>
+      );
+    } else if (index === 0) {
+      return this.renderTransition(
+        <div>Tap to start!</div>,
+        <KanaPhrase kana={test[index]} onDone={e => this.onPhraseDone(e)} />
+      );
+    } else if (index < test.length) {
+      return this.renderTransition(
+        <KanaPhrase kana={test[index - 1]} />,
+        <KanaPhrase kana={test[index]} onDone={e => this.onPhraseDone(e)} />
+      );
+    } else {
+      return this.renderTransition(
+        <KanaPhrase kana={test[test.length - 1]} />,
+        <KanaTestStats stats={this.state.stats} />
+      );
+    }
   }
 }
 
