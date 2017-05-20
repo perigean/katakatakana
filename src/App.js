@@ -184,7 +184,7 @@ class KanaTest extends React.Component {
   }
 
   onKeyPress(e) {
-    
+
   }
 
   renderTransition(leaving, entering) {
@@ -231,7 +231,7 @@ class KanaTest extends React.Component {
             top: '0',
             left: '0',
             width: '100%',
-            height: '100%',
+            height: '50%',
             border: '0',
             padding: '0',
             background: 'transparent',
