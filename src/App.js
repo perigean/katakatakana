@@ -28,17 +28,7 @@ class KanaProgress extends React.Component {
 class PopoutIcon extends React.Component {
   render() {
     return (
-      <div style={{
-        position: 'absolute',
-        width: '10vw',
-        height: '10vw',
-        fontSize: '10vw',
-        marginLeft: '-5vw',
-        marginTop: '-5vw',
-        animationName: 'flyout',
-        animationDuration: '0.35s',
-        animationFillMode: 'forwards',
-        animationTimingFunction: 'linear',
+      <div className="popout" style={{
         left: this.props.x,
         top: this.props.y,
       }}>
@@ -103,35 +93,12 @@ class KanaPhrase extends React.Component {
           position: 'relative',
           width: '100%',
           height: '100%',
-
         }}
       >
-        <div
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            left: '0px',
-            top: '0px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-          key="kana"
-        >
+        <div key="kana" className="kanacontainer">
           <span style={{fontSize: `${Math.floor(50 / kana.length)}vmin`}}>{kana}</span>
         </div>
-        <div
-          style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            left: '0px',
-            top: '0px',
-            perspective: '250px',
-          }}
-          key="errors"
-        >
+        <div key="errors" className="popoutcontainer">
           {errorIcons}
         </div>
       </div>
@@ -188,32 +155,10 @@ class KanaTest extends React.Component {
   renderTransition(leaving, entering) {
     return (
       <div>
-        <div key={`phrase ${this.state.index}`} style={{
-          position: 'absolute',
-          top: '0',
-          left: '0',
-          width: '100%',
-          height: '50%',
-          backfaceVisibility: 'hidden',
-          animationName: 'rotin',
-          animationDuration: '0.3s',
-          animationFillMode: 'forwards',
-          animationTimingFunction: 'linear',
-        }}>
+        <div key={`phrase ${this.state.index}`} className="rotcard" style={{animationName: 'rotin'}}>
           {entering}
         </div>
-        <div key={`phrase ${this.state.index - 1}`} style={{
-          position: 'absolute',
-          top: '0',
-          left: '0',
-          width: '100%',
-          height: '50%',
-          backfaceVisibility: 'hidden',
-          animationName: 'rotout',
-          animationDuration: '0.3s',
-          animationFillMode: 'forwards',
-          animationTimingFunction: 'linear',
-        }}>
+        <div key={`phrase ${this.state.index - 1}`} className="rotcard" style={{animationName: 'rotout'}}>
           {leaving}
         </div>
         <input key="input"
