@@ -141,10 +141,6 @@ class KanaPhrase extends React.Component {
 };
 
 class KanaTestStats extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const errors = this.props.stats.reduce((a, v) => a + v.errors, 0);
     const dt = this.props.stats.reduce((a, v) => a + v.dt, 0);
@@ -184,7 +180,9 @@ class KanaTest extends React.Component {
   }
 
   onKeyPress(e) {
-
+    if (this.inputTarget) {
+      this.inputTarget.onKeyPress(e);
+    }
   }
 
   renderTransition(leaving, entering) {
@@ -249,12 +247,12 @@ class KanaTest extends React.Component {
     } else if (index === 0) {
       return this.renderTransition(
         <div>Tap to start!</div>,
-        <KanaPhrase kana={test[index]} onDone={e => this.onPhraseDone(e)} />
+        <KanaPhrase kana={test[index]} onDone={e => this.onPhraseDone(e)} ref={r => {this.inputTarget = r}} />
       );
     } else if (index < test.length) {
       return this.renderTransition(
         <KanaPhrase kana={test[index - 1]} />,
-        <KanaPhrase kana={test[index]} onDone={e => this.onPhraseDone(e)} />
+        <KanaPhrase kana={test[index]} onDone={e => this.onPhraseDone(e)} ref={r => {this.inputTarget = r}} />
       );
     } else {
       return this.renderTransition(
