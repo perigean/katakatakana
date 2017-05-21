@@ -67,7 +67,7 @@ class KanaPhrase extends React.Component {
   }
 
   onKeyPress(event) {
-    if (this.state.toType.startsWith(event.key)) {
+    if (this.state.toType.startsWith(event.key.toLowerCase())) {
       this.setState({
         toType: this.state.toType.substring(1),
         correct: this.state.correct + event.key,
